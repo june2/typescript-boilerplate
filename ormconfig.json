@@ -1,0 +1,11 @@
+{
+  "type": "mongodb",
+  "host": "localhost",
+  "port": "27017",
+  "database": "test",
+  "entities": [
+    "src/api/**/**.entity{.ts,.js}"
+  ],
+  "synchronize": true,
+  "useNewUrlParser": true
+}
