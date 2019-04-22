@@ -22,25 +22,30 @@
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
-    "@nestjs/swagger": "3.0.2",
-    "@nestjs/platform-express": "^6.0.0",
-    "@nestjs/typeorm": "6.0.0",
+    "@nestjs/jwt": "6.0.0",
     "@nestjs/mongoose": "^5.2.2",
+    "@nestjs/passport": "6.0.0",
+    "@nestjs/platform-express": "^6.0.0",
+    "@nestjs/swagger": "3.0.2",
+    "@nestjs/typeorm": "6.0.0",
     "class-transformer": "0.2.0",
     "class-validator": "0.9.1",
     "mongodb": "3.2.3",
+    "passport": "0.4.0",
+    "passport-http-bearer": "1.0.1",
+    "passport-jwt": "4.0.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
     "swagger-ui-express": "^4.0.2",
-    "typeorm": "0.2.16"
+    "typeorm": "^0.2.16"
   },
   "devDependencies": {
+    "@nestjs/testing": "6.0.5",
     "@types/express": "^4.16.0",
     "@types/jest": "^23.3.13",
     "@types/node": "^10.12.18",
     "@types/supertest": "^2.0.7",
-    "@nestjs/testing": "6.0.5",
     "jest": "^23.6.0",
     "jest-cli": "^24.7.1",
     "nodemon": "^1.18.9",
@@ -50,7 +55,8 @@
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.7.0",
     "tslint": "5.12.1",
-    "typescript": "^3.2.4"
+    "typescript": "^3.2.4",
+    "mongodb-memory-server": "^1.7.3"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -64,6 +70,9 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "verbose": true,
+    "setupFilesAfterEnv": [      
+    ]
   }
 }
