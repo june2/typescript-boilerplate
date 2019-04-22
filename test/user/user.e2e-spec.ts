@@ -6,7 +6,7 @@ import { UserModule } from '../../src/api/user/user.module';
 import { User } from '../../src/api/user/user.entity';
 import { UserService } from '../../src/api/user/user.service';
 
-describe('Cats', () => {
+describe('Users', () => {
   const userService = {
     findAll: () => ['test', 'test'],
     create: () => 'test'
