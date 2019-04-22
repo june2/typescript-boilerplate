@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PhotoModule } from './api/photo/photo.module';
 import { UserModule } from './api/user/user.module';
+import { AuthModule } from './api/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(), 
-    PhotoModule, UserModule    
+    AuthModule, UserModule    
   ]
 })
 export class ApplicationModule {}
