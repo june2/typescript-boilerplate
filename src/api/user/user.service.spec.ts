@@ -27,7 +27,7 @@ describe('UserService', () => {
 
   it('find all', async () => {
     let users = await service.findAll();
-    console.log(users);
+    // console.log(users);
     // expect(users).toBeDefined();
   });
 
