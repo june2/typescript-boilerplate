@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn start:prod
+  /usr/local/bin/node /usr/local/bin/yarn test
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin
@@ -27,13 +27,13 @@ npm manifest:
       "start:dev": "NODE_ENV=development nodemon",
       "start:debug": "nodemon --config nodemon-debug.json",
       "prestart:prod": "rimraf dist && npm run build",
-      "start:prod": "node dist/src/main.js",
+      "start:prod": "node dist/main.js",
       "lint": "tslint -p tsconfig.json -c tslint.json",
-      "test": "jest",
-      "test:watch": "jest --watch",
-      "test:cov": "jest --coverage",
-      "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-      "test:e2e": "jest --config ./test/jest-e2e.json"
+      "test": "NODE_ENV=test jest --detectOpenHandles",
+      "test:watch": "NODE_ENV=test jest --watch",
+      "test:cov": "NODE_ENV=test jest --coverage",
+      "test:debug": "NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+      "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
       "@nestjs/common": "6.1.1",
@@ -92,8 +92,10 @@ npm manifest:
       },
       "coverageDirectory": "../coverage",
       "testEnvironment": "node",
-      "verbose": true,
-      "setupFilesAfterEnv": []
+      "verbose": true,    
+      "setupFilesAfterEnv": [
+        "<rootDir>/../test/setup.ts"
+      ]
     }
   }
 
@@ -6052,7 +6054,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c node dist/src/main.js
+  Arguments: -c NODE_ENV=test jest --detectOpenHandles
   Directory: /Users/kimjuneyoung/Desktop/git-repo/typescript-boilerplate
   Output:
   

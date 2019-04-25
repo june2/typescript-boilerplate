@@ -1,46 +1,33 @@
-import { EventEmitter } from 'events'
-import MongodbMemoryServer from 'mongodb-memory-server'
-import mongoose from '../src/services/mongoose'
+// import { Test, TestingModule } from '@nestjs/testing';
+// import { ApplicationModule } from './../src/app.module';
+// import { EventEmitter } from 'events'
 
-EventEmitter.defaultMaxListeners = Infinity
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
+// EventEmitter.defaultMaxListeners = Infinity
+// jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
-global.Array = Array
-global.Date = Date
-global.Function = Function
-global.Math = Math
-global.Number = Number
-global.Object = Object
-global.RegExp = RegExp
-global.String = String
-global.Uint8Array = Uint8Array
-global.WeakMap = WeakMap
-global.Set = Set
-global.Error = Error
-global.TypeError = TypeError
-global.parseInt = parseInt
-global.parseFloat = parseFloat
+// let app: any;
 
-let mongoServer
+// beforeAll(async () => {
+//   console.log(11);
+//   const moduleFixture: TestingModule = await Test.createTestingModule({
+//     imports: [ApplicationModule],
+//   }).compile();
 
-beforeAll(async () => {
-  mongoServer = new MongodbMemoryServer()
-  const mongoUri = await mongoServer.getConnectionString()
-  await mongoose.connect(mongoUri, (err) => {
-    if (err) console.error(err)
-  })
-})
+//   // app = moduleFixture.createNestApplication();
+//   // await app.init();
+// })
 
-afterAll(async () => {
-  await mongoose.disconnect()
-  await mongoServer.stop()
-})
+// afterAll(async () => {
+//   console.log(22);
+// })
 
-afterEach(async () => {
-  const { collections } = mongoose.connection
-  const promises = []
-  Object.keys(collections).forEach((collection) => {
-    promises.push(collections[collection].remove())
-  })
-  await Promise.all(promises)
-})
+// // afterEach(async () => {
+// //   const { collections } = mongoose.connection
+// //   const promises = []
+// //   Object.keys(collections).forEach((collection) => {
+// //     promises.push(collections[collection].remove())
+// //   })
+// //   await Promise.all(promises)
+// // })
+
+// export const App: any = app;

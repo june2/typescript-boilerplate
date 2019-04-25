@@ -1,7 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as Joi from 'joi';
 import * as fs from 'fs';
-import { join } from 'path';
 
 export interface EnvConfig {
   [key: string]: string;
@@ -11,8 +10,7 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
 
   constructor() {
-    // const config = dotenv.parse(fs.readFileSync(`.env.${process.env.NODE_ENV == null ? '' : process.env.NODE_ENV}`));
-    const config = dotenv.parse(fs.readFileSync(`.env`));
+    const config = dotenv.parse(fs.readFileSync(`.env${process.env.NODE_ENV == null ? '' : '.' + process.env.NODE_ENV}`));    
     this.envConfig = this.validateInput(config);
   }
 
@@ -52,7 +50,7 @@ export class ConfigService {
   }
 
   get dbType(): any {
-    return "mongodb";
+    return String(this.envConfig.DB_TYPE);
   }
 
   get dbHost(): string {
