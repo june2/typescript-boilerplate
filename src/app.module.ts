@@ -1,24 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
+import * as path from 'path';
 import { UserModule } from './api/user/user.module';
 import { AuthModule } from './api/auth/auth.module';
-import { ConfigModule } from './common/config/config.module';
-import { ConfigService } from './common/config/config.service';
-
-const config : ConfigService = new ConfigService();
+import { ConfigModule, ConfigService } from 'nestjs-config';
 
 @Module({
   imports: [
-    ConfigModule,
-    TypeOrmModule.forRoot({
-      type: config.dbType,      
-      host: config.dbHost,
-      port: config.dbPort,
-      database: config.dbName,
-      entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-      synchronize: true,
-      useNewUrlParser: true
+    ConfigModule.load(path.resolve(__dirname, 'common/config', '**', '!(*.d).{ts,js}')),
+    TypeOrmModule.forRootAsync({
+      useFactory: (config: ConfigService) => config.get('database'),
+      inject: [ConfigService],
     }),
     AuthModule,
     UserModule

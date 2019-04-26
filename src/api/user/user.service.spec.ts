@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
-import { ConfigService } from '../../common/config/config.service';
+import * as path from 'path';
+import { ConfigModule, ConfigService } from 'nestjs-config';
 import { UserModule } from './user.module';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -9,19 +9,14 @@ import { CreateUserDto, UpdateUserDto } from './user.dto'
 
 describe('UserService', () => {
   let service: UserService;
-  const config: ConfigService = new ConfigService();
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: config.dbType,
-          host: config.dbHost,
-          port: config.dbPort,
-          database: config.dbName,
-          entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-          synchronize: true,
-          useNewUrlParser: true
+        ConfigModule.load(path.resolve(__dirname, '../../common/config', '**', '!(*.d).{ts,js}')),
+        TypeOrmModule.forRootAsync({
+          useFactory: (config: ConfigService) => config.get('database'),
+          inject: [ConfigService],
         }),
         TypeOrmModule.forFeature([User]),
         UserModule,

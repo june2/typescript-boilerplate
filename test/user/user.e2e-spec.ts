@@ -1,10 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from '../../src/api/user/user.module';
-import { User } from '../../src/api/user/user.entity';
 import { UserService } from '../../src/api/user/user.service';
+import { ApplicationModule } from './../../src/app.module';
 
 describe('Users', () => {
   const userService = {
@@ -17,11 +15,7 @@ describe('Users', () => {
   beforeAll(async () => {
 
     const moduleFixture = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot(),
-        TypeOrmModule.forFeature([User]),
-        UserModule,
-      ]
+      imports: [ApplicationModule]
     })
       .overrideProvider(UserService)
       .useValue(userService)
