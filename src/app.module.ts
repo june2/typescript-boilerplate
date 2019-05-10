@@ -15,10 +15,11 @@ const config : ConfigService = new ConfigService();
       type: config.dbType,      
       host: config.dbHost,
       port: config.dbPort,
+      username: config.dbUser,
+      password: config.dbPwd,
       database: config.dbName,
       entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-      synchronize: true,
-      useNewUrlParser: true
+      synchronize: true
     }),
     AuthModule,
     UserModule

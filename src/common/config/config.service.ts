@@ -29,6 +29,8 @@ export class ConfigService {
       DB_HOST: Joi.string().default('localhost'),
       DB_PORT: Joi.number().default(27017),
       DB_NAME: Joi.string().default('nest'),
+      DB_USER: Joi.string().default('root'),     
+      DB_PWD: Joi.string().default('root'),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -63,5 +65,13 @@ export class ConfigService {
 
   get dbName(): string {
     return String(this.envConfig.DB_NAME);
+  }
+
+  get dbUser(): string {
+    return String(this.envConfig.DB_USER);
+  }
+
+  get dbPwd(): string {
+    return String(this.envConfig.DB_PWD);
   }
 }

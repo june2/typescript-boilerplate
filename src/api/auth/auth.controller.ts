@@ -6,7 +6,6 @@ import {
   ApiUseTags,
 } from '@nestjs/swagger';
 import { Controller, Get, Post, UseGuards, Body, UnauthorizedException } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { UserService } from './../user/user.service';
 import { AuthLoginDto } from './auth.dto';
@@ -34,12 +33,4 @@ export class AuthController {
     }    
     return await this.authService.createToken(user);        
   }
-
-  // @Get('data')
-  // @UseGuards(AuthGuard())
-  // findAll() {
-  //   // this route is restricted by AuthGuard
-  //   // JWT strategy
-  //   return 111;
-  // }
 }
