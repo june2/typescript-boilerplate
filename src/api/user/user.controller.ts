@@ -4,7 +4,8 @@ import {
   ApiResponse,
   ApiUseTags,
 } from '@nestjs/swagger';
-import { Controller, Param, Body, Get, Post, Put } from '@nestjs/common';
+import { Controller, Param, Body, Get, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UpdateResult } from 'typeorm';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -22,9 +23,17 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get('/me')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Get user' })
+  findById(@Req() request): Promise<User> {
+    // if (!id) throw new HttpException('ID parameter is missing', HttpStatus.BAD_REQUEST);    
+    return request.user;
+  }
+
   @Post()
   @ApiOperation({ title: 'Create user' })
-  @ApiResponse({ status: 201, description: 'The record has been successfully created.'})
+  @ApiResponse({ status: 201, description: 'The record has been successfully created.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   create(@Body() createPhotoDto: CreateUserDto): Promise<User> {
     return this.userService.create(createPhotoDto);
