@@ -1,9 +1,11 @@
 version: "3"
 
 services:
-  mongodb:
-    image: mongo:latest
+  mysql:
+    image: mysql    
+    command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
-      - MONGODB_DATABASE="test"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
     ports:
-      - 27017:27017
+      - "3306:3306"
